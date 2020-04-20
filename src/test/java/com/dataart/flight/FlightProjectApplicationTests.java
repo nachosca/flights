@@ -4,13 +4,14 @@ import com.dataart.flight.dao.CityDAOImpl;
 import com.dataart.flight.model.City;
 import com.dataart.flight.model.Ticket;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
-import org.springframework.test.context.event.annotation.BeforeTestMethod;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
@@ -23,7 +24,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.Objects;
 
 @SpringBootTest
-@Profile("test")
+@RunWith(SpringJUnit4ClassRunner.class)
 class FlightProjectApplicationTests {
 
 	protected MockMvc mvc;
@@ -37,7 +38,8 @@ class FlightProjectApplicationTests {
 	@Autowired
 	private ObjectMapper objectMapper;
 
-	protected void setup() {
+	@BeforeEach
+	protected void before() {
 		mvc = MockMvcBuilders.webAppContextSetup(wac).build();
 		insertCities();
 	}
@@ -61,7 +63,6 @@ class FlightProjectApplicationTests {
 
 	@Test
 	void testTicket01() throws Exception {
-		setup();
 		final String request = "{\n" +
 				"    \"departureDate\": \"2020-05-04\",\n" +
 				"    \"arrivalDate\": \"2020-05-04\",\n" +
@@ -94,7 +95,6 @@ class FlightProjectApplicationTests {
 
 	@Test
 	void testTicket02() throws Exception {
-		setup();
 		final String request = "{\n" +
 				"    \"departureDate\": \"2020-05-04\",\n" +
 				"    \"arrivalDate\": \"2020-05-04\",\n" +
@@ -119,7 +119,6 @@ class FlightProjectApplicationTests {
 
 	@Test
 	void testTicket03() throws Exception {
-		setup();
 		final String request = "{\n" +
 				"    \"departureDate\": \"2020-05-04\",\n" +
 				"    \"arrivalDate\": \"2020-05-03\",\n" +
@@ -144,7 +143,6 @@ class FlightProjectApplicationTests {
 
 	@Test
 	void testTicket04() throws Exception {
-		setup();
 		final String request = "{\n" +
 				"    \"departureDate\": \"2020-05-04\",\n" +
 				"    \"arrivalDate\": \"2020-05-05\",\n" +
@@ -169,7 +167,6 @@ class FlightProjectApplicationTests {
 
 	@Test
 	void testTicket05() throws Exception {
-		setup();
 		final String request = "{\n" +
 				"    \"departureDate\": \"2020-05-04\",\n" +
 				"    \"arrivalDate\": \"2020-05-05\",\n" +
@@ -194,7 +191,6 @@ class FlightProjectApplicationTests {
 
 	@Test
 	void testTicket06() throws Exception {
-		setup();
 		final String request = "{\n" +
 				"    \"departureDate\": \"2020-05-04\",\n" +
 				"    \"arrivalDate\": \"2020-05-05\",\n" +
@@ -218,7 +214,6 @@ class FlightProjectApplicationTests {
 
 	@Test
 	void testTicket07() throws Exception {
-		setup();
 		final String request = "{\n" +
 				"    \"departureDate\": \"2020-05-04\",\n" +
 				"    \"arrivalDate\": \"2020-05-05\",\n" +
@@ -242,7 +237,6 @@ class FlightProjectApplicationTests {
 
 	@Test
 	void testGetTicket01() throws Exception {
-		setup();
 		final String request = "{\n" +
 				"    \"departureDate\": \"2020-05-04\",\n" +
 				"    \"arrivalDate\": \"2020-05-04\",\n" +
@@ -284,8 +278,6 @@ class FlightProjectApplicationTests {
 
 	@Test
 	void testGetTicket02() throws Exception {
-		setup();
-
 		mvc.perform(MockMvcRequestBuilders.get("/ticket/-1").contentType(MediaType.APPLICATION_JSON))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isNotFound());
