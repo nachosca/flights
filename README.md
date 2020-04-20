@@ -10,6 +10,27 @@ To run the docker image
 docker run -t -p 127.0.0.1:8080:8080 flights:1.0
 
 
+#Swagger Api Documentation
+Once the project is running, you can go to
+
+http://localhost:8080/swagger-ui.html#/
+
+where you'll be able to see all the exposed endpoints with examples of data structure expected and returned.
+
+
+#Cities loaded
+id | name
+
+MAD	Madrid
+
+BCN	Barcelona
+
+BUE	Buenos Aires
+
+MIA	Miami
+
+NYC	New York City
+
 #Example Post
 
 ```Post - http://localhost:8080/ticket```
