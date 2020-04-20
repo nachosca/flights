@@ -26,7 +26,7 @@ import java.util.Objects;
 
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfile s("test")
+@ActiveProfiles("test")
 class FlightProjectApplicationTests {
 
 	protected MockMvc mvc;
