@@ -3,11 +3,8 @@ package com.dataart.flight.service;
 
 import com.dataart.flight.dao.CityDAOImpl;
 import com.dataart.flight.dao.TicketDAOImpl;
-import com.dataart.flight.exceptions.TicketException;
-import com.dataart.flight.exceptions.TicketValidationException;
 import com.dataart.flight.model.Ticket;
 import com.dataart.flight.validators.TicketValidator;
-import org.apache.tomcat.util.collections.CaseInsensitiveKeyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

@@ -1,16 +1,17 @@
 package com.dataart.flight;
 
 import com.dataart.flight.dao.CityDAOImpl;
+import com.dataart.flight.dao.TicketDAOImpl;
 import com.dataart.flight.model.City;
 import com.dataart.flight.model.Ticket;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -25,6 +26,7 @@ import java.util.Objects;
 
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
+@ActiveProfile s("test")
 class FlightProjectApplicationTests {
 
 	protected MockMvc mvc;
@@ -34,6 +36,9 @@ class FlightProjectApplicationTests {
 
 	@Autowired
 	private CityDAOImpl cityDAOImpl;
+
+	@Autowired
+	private TicketDAOImpl ticketDAOImpl;
 
 	@Autowired
 	private ObjectMapper objectMapper;
@@ -87,6 +92,7 @@ class FlightProjectApplicationTests {
 		String contentAsString = mvcResult.getResponse().getContentAsString();
 
 		final Ticket ticket = objectMapper.readValue(contentAsString, Ticket.class);
+		ticketDAOImpl.delete(ticket);
 
 	}
 
@@ -272,6 +278,9 @@ class FlightProjectApplicationTests {
 		final Ticket ticket2 = objectMapper.readValue(contentAsString, Ticket.class);
 
 		assert Objects.equals(ticket,ticket2);
+
+		ticketDAOImpl.delete(ticket);
+		ticketDAOImpl.delete(ticket2);
 
 
 	}
